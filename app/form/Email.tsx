@@ -1,46 +1,32 @@
-import { useState } from "react";
+import { ValidationFn } from "./types";
+import { useInputValidation } from "./useInputValidation";
 
 type EmailInputProps = {
+  validator: ValidationFn;
   id?: string;
   name?: string;
   label?: string;
   required?: boolean;
   autoComplete?: string;
   defaultValue?: string;
-  onEmailChange?: (email: string) => void;
-}
+};
 
-const EmailInput: React.FC<EmailInputProps> = ({
+const EmailInput = ({
   id = "email",
   name = "email",
   label = "Email",
   required = true,
   autoComplete = "off",
-  defaultValue = "",
-  onEmailChange,
-}) => {
-  const [email, setEmail] = useState<string>(defaultValue);
-  const [error, setError] = useState<string | null>(null);
-
-  const validateEmail = (value: string): boolean => {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailPattern.test(value);
-  };
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setEmail(value);
-
-    if (!validateEmail(value)) {
-      setError("Please enter a valid email address.");
-    } else {
-      setError(null);
-    }
-
-    if (onEmailChange) {
-      onEmailChange(value);
-    }
-  };
+  validator,
+}: EmailInputProps) => {
+  const { 
+    value,
+    error,
+    validate,
+    clearError,
+    isDirty,
+    isValid,
+  } = useInputValidation(validator);
 
   return (
     <div className="flex flex-col gap-2">
@@ -48,15 +34,16 @@ const EmailInput: React.FC<EmailInputProps> = ({
         {label}:
       </label>
       <input
+        type="email"
         id={id}
         name={name}
-        type="email"
+        value={value}
         required={required}
+        onBlur={validate}
+        onChange={clearError}
         autoComplete={autoComplete}
         aria-describedby={error ? `${id}-error` : undefined}
         aria-invalid={!!error}
-        value={email}
-        onChange={handleChange}
         className={`border rounded px-3 py-2 ${
           error ? "border-red-500" : "border-gray-300"
         }`}

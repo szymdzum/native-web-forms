@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useInputValidation } from "./useInputValidation";
+import { ValidationFn } from "./types";
 
 interface PasswordInputProps {
   id?: string;
@@ -7,7 +8,7 @@ interface PasswordInputProps {
   required?: boolean;
   autoComplete?: string;
   defaultValue?: string;
-  onPasswordChange?: (password: string) => void;
+  validator: ValidationFn;
 }
 
 const PasswordInput = ({
@@ -17,30 +18,9 @@ const PasswordInput = ({
   required = true,
   autoComplete = "off",
   defaultValue = "",
-  onPasswordChange,
+  validator,
 }: PasswordInputProps) => {
-  const [password, setPassword] = useState<string>(defaultValue);
-  const [error, setError] = useState<string | null>(null);
-
-  const validatePassword = (value: string): boolean => {
-    return value.length >= 8;
-  };
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setPassword(value);
-
-    if (!validatePassword(value)) {
-      setError("Password must be at least 8 characters long.");
-    } else {
-      setError(null);
-    }
-
-    if (onPasswordChange) {
-      onPasswordChange(value);
-    }
-  };
-
+  const { value, error, validate, clearError, isDirty, isValid } = useInputValidation(validator);
   return (
     <div className="flex flex-col gap-2">
       <label htmlFor={id} className="text-sm font-medium">
@@ -54,8 +34,9 @@ const PasswordInput = ({
         autoComplete={autoComplete}
         aria-describedby={error ? `${id}-error` : undefined}
         aria-invalid={!!error}
-        value={password}
-        onChange={handleChange}
+        value={value}
+        onBlur={validate}
+        onChange={clearError}
         className={`border rounded px-3 py-2 ${
           error ? "border-red-500" : "border-gray-300"
         }`}
