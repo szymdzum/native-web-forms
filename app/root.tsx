@@ -8,7 +8,9 @@ import {
 } from "react-router";
 
 import type { Route } from "./+types/root";
-import stylesheet from "./app.css?url";
+import variables from "./styles/variables.css?url";
+import reset from "./styles/reset.css?url";
+import global from "./styles/global.css?url";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -21,7 +23,9 @@ export const links: Route.LinksFunction = () => [
     rel: "stylesheet",
     href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
   },
-  { rel: "stylesheet", href: stylesheet },
+  { rel: "stylesheet", href: variables },
+  { rel: "stylesheet", href: reset },
+  { rel: "stylesheet", href: global },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -34,7 +38,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <main>{children}</main>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -63,11 +67,20 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
+    <main style={{ 
+      padding: 'var(--space-4)',
+      paddingTop: 'var(--space-4)',
+      margin: '0 auto',
+      maxWidth: '650px'
+    }}>
       <h1>{message}</h1>
       <p>{details}</p>
       {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
+        <pre style={{ 
+          width: '100%', 
+          padding: 'var(--space-4)',
+          overflowX: 'auto' 
+        }}>
           <code>{stack}</code>
         </pre>
       )}

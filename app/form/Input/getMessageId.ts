@@ -1,10 +1,3 @@
-/**
- * Configuration for generating message IDs for form fields
- * @typedef {Object} MessageType
- * @property {string | null} error - Error message if present
- * @property {string} [helper] - Optional helper text
- * @property {string} id - Base ID of the form field
- */
 type MessageType = {
   error: string | null;
   helper?: string;

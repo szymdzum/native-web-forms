@@ -1,6 +1,7 @@
+import styles from './Input.module.css'
 import { Message } from "./Message";
 import { Label } from "./Label";
-import { useValidator } from "./useValidator";
+import { useInput } from "./useInput";
 import { getMessageId } from "./getMessageId";
 
 type BaseInputProps = Omit<
@@ -50,11 +51,11 @@ const Input = ({
   className,
   ...props
 }: InputProps) => {
-  const { value, validate, error, clear } = useValidator(id, validator);
+  const { value, validate, error, clear } = useInput(id, validator);
   const messageId = getMessageId({ error, helper, id });
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className={styles.field}>
       <Label id={id} label={label} />
       <input
         id={id}
@@ -65,9 +66,7 @@ const Input = ({
         onChange={clear}
         required={required}
         autoComplete={autoComplete}
-        className={`flex h-9 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground shadow-sm shadow-black/5 transition-colors duration-150 ease-in-out focus:border-primary focus:outline-none ${
-          error ? "border-red-500" : "border-gray-300"
-        } ${className || ""}`}
+        className={`${styles.input} ${error ? styles.error : ''} ${className || ''}`}
         aria-invalid={!!error}
         aria-describedby={messageId}
         {...props}

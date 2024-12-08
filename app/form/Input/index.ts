@@ -3,6 +3,7 @@
  * @module Input
  */
 
+
 /**
  * Component Exports
  * @see {@link Input} - Base input component
@@ -19,7 +20,7 @@ export { Message } from './Message';
  * @see {@link useValidator} - Form validation hook
  */
 export { getMessageId } from './getMessageId';
-export { useValidator } from './useValidator';
+export { useInput } from './useInput';
 
 /**
  * Type Exports

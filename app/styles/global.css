@@ -1,0 +1,56 @@
+/* Layout */
+body {
+  background: var(--color-background);
+  color: var(--color-text);
+  min-height: 100vh;
+}
+
+main {
+  width: 100%;
+  max-width: 65ch;
+  margin: 0 auto;
+  padding: var(--space-4);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--space-4);
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+p {
+  margin-bottom: var(--space-4);
+}
+
+/* Links */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Code Blocks */
+pre {
+  background: #f4f4f4;
+  padding: var(--space-4);
+  border-radius: var(--input-radius);
+  overflow-x: auto;
+  margin: var(--space-4) 0;
+}
+
+code {
+  font-family: ui-monospace, monospace;
+  font-size: var(--font-size-sm);
+} 

@@ -1,3 +1,5 @@
+import styles from './Input.module.css';
+
 type MessageProps = Omit<
   React.HTMLAttributes<HTMLSpanElement>,
   "id" | "role" | "className"
@@ -30,13 +32,13 @@ const Message = ({ id, error, helper }: MessageProps): JSX.Element  => {
   const message = error || helper;
 
   return (
-    <div className="leading-4">
+    <div>
       {message && (
         <span
           id={id}
           role={error ? "alert" : undefined}
-          className={`text-xs ${
-            error ? "text-red-500" : "text-muted-foreground"
+          className={`${styles.message} ${
+            error ? styles.error : styles.helper
           }`}
         >
           {message}

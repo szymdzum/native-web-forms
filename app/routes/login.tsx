@@ -1,19 +1,19 @@
 import type { Route } from "./+types/home";
-import { useActionData, Form } from "react-router";
-
+import { useActionData } from "react-router";
 import { Button } from "@form/Button";
 import { Email, validateEmail } from "@form/Email";
-
 import { Password, passwordLength } from "@form/Password";
-
-import { Centered, Column } from "@components/Layout";
 import {
+  Form as LoginForm,
   createFormSchema,
   validateFormData,
   createFormResponse,
 } from "@form/Form";
-
 import { FormActionData } from "~/devtools/formActionData";
+/**
+ * Login page component
+ * @returns {JSX.Element} Login form with email and password fields
+ */
 
 /** Login form validation schema */
 const schema = createFormSchema({
@@ -21,24 +21,17 @@ const schema = createFormSchema({
   password: passwordLength,
 });
 
-/**
- * Login page component
- * @returns {JSX.Element} Login form with email and password fields
- */
 export default function Login(): JSX.Element {
   const actionData = useActionData<typeof action>();
+  const passwordHelper = "Enter your password";
 
   return (
-    <Centered>
-      <Form method="POST" noValidate>
-        <Column>
-          <Email id="email" validator={schema.email} />
-          <Password id="password" validator={schema.password} />
-          <Button type="submit">Submit</Button>
-        </Column>
-      </Form>
+    <LoginForm>
+      <Email validator={schema.email} />
+      <Password validator={schema.password} helper={passwordHelper} />
+      <Button type="submit">Submit</Button>
       <FormActionData data={actionData} title="Action Data Debug" />
-    </Centered>
+    </LoginForm>
   );
 }
 

@@ -1,3 +1,4 @@
+import styles from './Button.module.css';
 import type { ButtonHTMLAttributes } from 'react';
 
 /**
@@ -23,7 +24,7 @@ const Button = ({
   return (
     <button
       type={type}
-      className={`bg-blue-500 text-white p-2 rounded-md inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors outline-offset-2 ${className}`}
+      className={`${styles.button} ${className}`}
       {...props}
     >
       {children}

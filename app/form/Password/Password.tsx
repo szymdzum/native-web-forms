@@ -1,12 +1,4 @@
 import { Input, InputProps } from "@form/Input";
-
-const password = "password" as const;
-type PasswordAutoComplete = "current-password" | "new-password";
-
-type PasswordProps = Omit<InputProps, "type" | "inputMode" | "spellCheck"> & {
-  autoComplete?: PasswordAutoComplete;
-};
-
 /**
  * Specialized input component for passwords with preconfigured settings:
  * - Secure password input with masked characters
@@ -28,9 +20,13 @@ type PasswordProps = Omit<InputProps, "type" | "inputMode" | "spellCheck"> & {
  * <Password autoComplete="new-password" />
  */
 
+const password = "password" as const;
+
+type PasswordProps = Omit<InputProps, "id"> & { id?: string };
+
 const Password = ({
-  id = "password",
-  name = "password",
+  id = password,
+  name = password,
   label = "Password",
   autoComplete = "current-password",
   ...props

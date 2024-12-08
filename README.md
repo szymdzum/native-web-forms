@@ -1,44 +1,76 @@
 # useAnotherFormHook (POC v0.07 alpha)
 
-*Just a project to play with ideas. Probably not for production. Just use another hook form. Thanks Szymon*
+When working with forms in web applications, I often don’t need fully-fledged React form libraries. There’s no need to access a form context or even control inputs explicitly. Sometimes, all I need is a simple and lightweight way to manage a few inputs without dragging in a massive dependency.
 
-Saw plenty of solid `useForm()` implementations — let me have a go with `useInput()`.
+To solve this, I created the yet another useInput hook. Designed with simplicity in mind, it manages the state, validation, and user interaction for a single input. It’s perfect for cases where you’re dealing with 3–4 inputs and want to avoid the overhead of a full form library.
 
-## The Story So Far…
+### What Does `useInput` Do?
 
-One day, a little thought bubbled up: <br>
-“Wouldn’t it be nice if forms could look something like this?”
+The hook attaches itself to an HTMLInputElement’s value and validates it on the blur (focus out) event using a provided validator function. If the criteria are met, it returns null; otherwise, it provides an error message.
+
+Here’s an example:
+```jsx
+const Name = (props: InputProps) => {
+// Validator
+const validateName => (value: string): string | null  => {
+  if (!/^[A-Za-z\s]+$/.test(value)) {
+    return "Name can only contain letters"; // Sorry R2-D2 
+  }
+  return null;
+}
+
+const {
+  value, // curent input value
+  error, // current error message, null if no error exists
+  validate, // validates value using the validator on blur
+  clear, // updates the value and clears existing errors on change
+} = useInput(validateName);
+
+return (
+  <div className={styles.field}>
+    <Label />
+    <input
+      value={value}
+      onBlur={validate}
+      onChange={clear}
+      className={`${error ? styles.error : ''}`}
+    />
+    <Message error={error} /> {/* Error message is displayed */}
+  </div>
+}
+```
+
+This hook provides all the tools you need to handle input state and validation logic seamlessly.
+
+### Composition
+
+When each input manages itself internally, it doesn’t need to be aware of its surroundings. This enables clean and elegant compositions, which was one of my primary goals. Its nice to look at.
 
 ```jsx
-<LoginForm>
+<Form>
   <Email />
   <Password />
   <Submit />
-</LoginForm>
+</Form>
 ```
 
-I stared at it and thought:
-“Wow, that’s beautiful. It’s so clear, so easy to grasp! Let’s build it!”
-And thus, the idea for `use-another-hook-form` was born!
+### Web API Integration
 
-This project is my experiment in form-building, dictated entirely by:
+Instead of relying on context or controlled inputs, let the Web API do what it does best: handle form submissions natively. As a wise man once said, “If it ain’t broke, don’t fix it." 
 
-- My visual preferences 🎨 ( Reducing the visual clutter )
-- Personal biases 🌀 ( I will use vanilla css, thank you)
-- Odd coding habits 🤷‍♂️ ( Need to find something... )
+```html
+<form action="POST">
+  <input name="firstName" />
+  <button type="submit">Send</button>
+</form>
+```
+You can then access the form data on the action like this:
 
-The goal? Make forms as intuitive and composable as LEGO™ bricks. <br/>
-Need a username instead of an email? Just swap:
-
-```jsx
-<Email /> ➡️ <Username />
+```js
+const formData = await request.formData();
 ```
 
-Boom! You’re done.
-
----
-
-✨ Key Objectives
+## ✨ Key Objectives
 
 ### Native Form Handling
 
@@ -56,29 +88,27 @@ React is here to help—but only with the small stuff, like:
 
 React will NOT manage form state or submission logic. Web standards got this!
 
+### Copy Paste
+
+I'm on board with latest trend of just allowing code fragments to be CtrlC CtrlV into other projects. Take what you need, modify to your liking, 
+
 ### Preconfigured Inputs
 
 Inputs should work out of the box. Default values? Pre-set attributes? Yes, please. Of course, you can tweak them all you want—just like the perfect pizza topping. 🍕
 
-###  Modern Tooling
+### Modern Tooling
 
 This project is a playground for the coolest, shiniest toys:
 -	React Router v7
 - React 19
-- Vanilla CSS (because why not?)
+- Vanilla CSS (you can use Tailwind if you must)
 
-If a tool is more than three months old, it’s basically ancient. Let’s keep this thing blazing fast! 🚀
+## 🌟 Why Another Form Library?
 
----
-
-🌟 Why Another Form Library?
-
-Because sometimes, it’s not about solving a problem. Sometimes, it’s about chasing an idea that makes you smile.
-
-If you like forms that are simple, composable, and unapologetically biased toward looking good, might just be for you. Stay tuned!
+Because sometimes, it’s not about solving a problem. Sometimes, it’s about chasing an idea that makes you smile. If you like forms that are simple, composable, and unapologetically biased toward looking good, might just be for you. Stay tuned!
 
 Pull requests, ideas, and criticisms are welcome!
-( It’s still a baby project.)
+(It’s still a baby project.)
 
 ---
 

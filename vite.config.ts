@@ -29,7 +29,6 @@ export default defineConfig(({ isSsrBuild, command }) => ({
       "@form/Input": path.resolve(__dirname, "./app/form/Input"),
       "@form/Password": path.resolve(__dirname, "./app/form/Password"),
       "@form/Button": path.resolve(__dirname, "./app/form/Button"),
-      "@components/Layout": path.resolve(__dirname, "./app/components/Layout"),
     },
   },
 }));

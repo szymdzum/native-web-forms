@@ -1,0 +1,28 @@
+.button {
+  background-color: var(--color-primary);
+  color: var(--color-background);
+  padding: var(--space-2);
+  border-radius: 0.375rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  font-size: var(--font-size-sm);
+  font-family: var(--font-family-base);
+  font-weight: 500;
+  transition: background-color 0.2s;
+  outline-offset: 2px;
+}
+
+.button:hover {
+  background-color: color-mix(in srgb, var(--color-primary) 85%, black);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-primary);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
