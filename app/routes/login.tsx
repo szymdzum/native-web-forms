@@ -33,11 +33,7 @@ export default function Login(): JSX.Element {
       <Form method="POST" noValidate>
         <Column>
           <Email id="email" validator={schema.email} />
-          <Password
-            id="password"
-            helper="helper test"
-            validator={schema.password}
-          />
+          <Password id="password" validator={schema.password} />
           <Button type="submit">Submit</Button>
         </Column>
       </Form>

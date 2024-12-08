@@ -1,18 +1,18 @@
 import type { Route } from "./+types/home";
-import { Link } from "react-router";
-import { Centered } from "@components/Layout";
 
 export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "Native Form Test" },
-    { name: "test", content: "hello!" },
-  ];
+  return [{ title: "use-another-hook-form" }];
 }
 
-export default function Home() {
+export default function Index() {
   return (
-    <Centered>
-      <Link to="/login">Login</Link>
-    </Centered>
+    <main>
+      <h1>useAnotherFormHook</h1>
+      <p>
+        <em>
+          Just another form library. Probably not for production. Thanks Szymon.
+        </em>
+      </p>
+    </main>
   );
 }
