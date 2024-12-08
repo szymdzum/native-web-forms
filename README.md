@@ -1,7 +1,5 @@
 # useAnotherFormHook (Proof of Concept v0.07 alpha)
 
---
-
 *Yet another attempt at reinventing the wheel—because sometimes, you just want your wheel to be shiny, rounder (probably), and just fun!*
 
 ## The Story So Far…
