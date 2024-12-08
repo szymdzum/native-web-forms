@@ -1,4 +1,4 @@
-import type { Validator } from "~/form/types";
+export type Validator = (value: string) => string | null;
 
 export type FormSchema = Record<string, Validator>;
 
@@ -54,4 +54,4 @@ export function validateFormData<Schema extends FormSchema>(
     success: true,
     data: data as ValidatedData<Schema>,
   };
-};
+}
