@@ -1,36 +1,55 @@
 /**
  * Custom hook for input field validation
- * @param validateFn - Validation function returning error or null
- * @param initialValue - Optional initial value for the input
+ * @param validator - Validation function returning error or null
  * @returns Validation state and handlers
  */
-import { useState, useCallback, useMemo } from "react";
-import { InputChange, InputFocus } from "~/types/events";
-import { ValidationFn } from "./types";
+import { useState, useCallback, useMemo, useEffect } from "react";
+import { InputChange, InputFocus } from "~/form/types/events";
+import { Validator } from "../types";
+import { useActionData } from "react-router";
 
-type InputValidationReturn = {
+type ActionFormData = {
+  success: boolean;
+  errors?: Record<string, string>;
+  data?: Record<string, unknown>;
+};
+
+type ValidatorReturn = {
   value: string;
   error: string | null;
   isDirty: boolean;
   isValid: boolean;
   validate: (event: InputFocus) => void;
-  clearError: (event: InputChange) => void;
+  clear: (event: InputChange) => void;
 };
 
-export const useInputValidation = (
-  validateFn: ValidationFn,
-  initialValue: string = ""
-): InputValidationReturn => {
-  const [value, setValue] = useState<string>(initialValue);
+export const useValidator = (
+  fieldName?: string,
+  validator?: Validator
+): ValidatorReturn => {
+  const actionResponse = useActionData<ActionFormData>();
+  const [value, setValue] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [isDirty, setIsDirty] = useState(false);
 
-  // validation handler
+  useEffect(() => {
+    if (
+      actionResponse?.errors &&
+      fieldName &&
+      actionResponse.errors[fieldName]
+    ) {
+      setError(actionResponse.errors[fieldName]);
+      setIsDirty(true);
+    }
+  }, [actionResponse, fieldName]);
+
   const validate = useCallback(
     (event: InputFocus) => {
+      if (!validator) return;
+
       const target = event.target;
       const inputValue = target.value.trim();
-      const validationError = validateFn(inputValue);
+      const validationError = validator(inputValue);
 
       if (validationError) {
         setError(validationError);
@@ -38,11 +57,11 @@ export const useInputValidation = (
         setError(null);
       }
     },
-    [validateFn]
+    [validator]
   );
 
   // change handler
-  const clearError = useCallback(
+  const clear = useCallback(
     (event: InputChange) => {
       const target = event.target;
       const newValue = target.value;
@@ -65,7 +84,7 @@ export const useInputValidation = (
     value,
     error,
     validate,
-    clearError,
+    clear,
     isDirty,
     isValid,
   };

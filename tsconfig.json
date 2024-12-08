@@ -15,7 +15,13 @@
     "rootDirs": [".", "./.react-router/types"],
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./app/*"]
+      "~/*": ["./app/*"],
+      "@form/*": ["app/form/*"],
+      "@form/Form": ["app/form/Form"],
+      "@form/Input": ["app/form/Input"],
+      "@form/Password": ["app/form/Password"],
+      "@form/Button": ["app/form/Button"],
+      "@components/Layout": ["app/components/Layout"]
     },
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

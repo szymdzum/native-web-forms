@@ -1,6 +1,6 @@
 import type { Route } from "./+types/home";
 import { Link } from "react-router";
-import CenteredLayout from "~/components/CenteredLayout";
+import { Centered } from "@components/Layout";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -11,8 +11,8 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
   return (
-    <CenteredLayout>
+    <Centered>
       <Link to="/login">Login</Link>
-    </CenteredLayout>
+    </Centered>
   );
 }

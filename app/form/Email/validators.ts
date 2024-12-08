@@ -1,5 +1,10 @@
-const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+export const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
+/**
+ * Validates basic email format
+ * @param {string} value - Email to validate
+ * @returns {string | null} Error message or null if valid
+ */
 export const validateEmail = (value: string): string | null => {
   if (!value) {
     return "Email is required";
@@ -12,7 +17,11 @@ export const validateEmail = (value: string): string | null => {
   return null;
 };
 
-// Stricter version that enforces some additional rules
+/**
+ * Validates stricter email format
+ * @param {string} value - Email to validate
+ * @returns {string | null} Error message or null if valid
+ */
 export const validateEmailStrict = (value: string): string | null => {
   if (!value) {
     return "Email is required";
@@ -38,7 +47,11 @@ export const validateEmailStrict = (value: string): string | null => {
   return null;
 };
 
-// Version that also checks common disposable email domains
+/**
+ * Validates email against common disposable domains
+ * @param {string} value - Email to validate
+ * @returns {string | null} Error message or null if valid
+ */
 export const emailWithDomain = (value: string): string | null => {
   const basicValidation = validateEmail(value);
   if (basicValidation) {

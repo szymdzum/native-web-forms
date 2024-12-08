@@ -1,9 +1,10 @@
-type CenteredLayoutProps = {
-  children: React.ReactNode;
-  className?: string;
-}
+import { PropsWithChildren } from "react";
 
-const CenteredLayout = ({ children, className = "" }: CenteredLayoutProps) => {
+type Props = {
+  className?: string;
+};
+
+const Centered = ({ children, className = "" }: PropsWithChildren<Props>) => {
   return (
     <main className="min-h-screen grid place-items-center">
       <section className={`w-full max-w-md p-8 ${className}`}>
@@ -13,4 +14,5 @@ const CenteredLayout = ({ children, className = "" }: CenteredLayoutProps) => {
   );
 };
 
-export default CenteredLayout;
+Centered.displayName = "Centered";
+export { Centered };

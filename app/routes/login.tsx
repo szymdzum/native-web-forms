@@ -1,70 +1,54 @@
 import type { Route } from "./+types/home";
-import { useActionData } from "react-router";
-import { Form } from "react-router";
-import Button from "~/form/Button";
-import Email from "~/form/Email";
-import Password from "~/form/Password";
-import CenteredLayout from "~/components/CenteredLayout";
-import Column from "~/components/Column";
+import { useActionData, Form } from "react-router";
 
-import { passwordLength } from "~/form/validators/password";
-import { emailWithDomain } from "~/form/validators/email";
+import { Button } from "@form/Button";
+import { Email, validateEmail } from "@form/Email";
 
-export default function Login({ loaderData }: Route.ComponentProps) {
-  const actionData = useActionData<ActionData>();
-  console.log("actionData", actionData);
+import { Password, passwordLength } from "@form/Password";
+
+import { Centered, Column } from "@components/Layout";
+import {
+  createFormSchema,
+  validateFormData,
+  createFormResponse,
+} from "@form/Form";
+
+import { FormActionData } from "~/devtools/formActionData";
+
+/** Login form validation schema */
+const schema = createFormSchema({
+  email: validateEmail,
+  password: passwordLength,
+});
+
+/**
+ * Login page component
+ * @returns {JSX.Element} Login form with email and password fields
+ */
+export default function Login(): JSX.Element {
+  const actionData = useActionData<typeof action>();
 
   return (
-    <CenteredLayout>
-      <Form method="POST">
+    <Centered>
+      <Form method="POST" noValidate>
         <Column>
-          <Email validator={emailWithDomain} />
-          <Password validator={passwordLength} />
+          <Email id="email" validator={schema.email} />
+          <Password
+            id="password"
+            helper="helper test"
+            validator={schema.password}
+          />
           <Button type="submit">Submit</Button>
         </Column>
       </Form>
-    </CenteredLayout>
+      <FormActionData data={actionData} title="Action Data Debug" />
+    </Centered>
   );
 }
 
-type ActionData = {
-  success?: boolean;
-  errors?: {
-    email?: string;
-    password?: string;
-  };
-  data?: {
-    email?: string;
-    password?: string;
-  };
-};
-
-export async function action({ request }: Route.ActionArgs) {
+export const action = async ({ request }: Route.ActionArgs) => {
   const formData = await request.formData();
+  const result = validateFormData(formData, schema);
 
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
-
-  const errors: ActionData["errors"] = {};
-
-  if (password && password.length < 8) {
-    console.log("password", password);
-    errors.password = "server password error";
-  }
-
-  if (Object.keys(errors).length > 0) {
-    return {
-      status: 400,
-      success: false,
-      errors,
-    };
-  }
-
-  return {
-    success: true,
-    data: {
-      email,
-      password,
-    },
-  };
-}
+  return createFormResponse(result);
+};
