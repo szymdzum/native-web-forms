@@ -1,12 +1,4 @@
-import { Input, InputProps } from "../Input/Input";
-
-const email = "email" as const;
-
-type EmailProps = Omit<
-  InputProps,
-  "type" | "autoComplete" | "inputMode" | "spellCheck"
->;
-
+import { Input, InputProps } from "@form/Input";
 /**
  * Specialized input component for email addresses with preconfigured settings:
  * - Email-specific keyboard layout on mobile
@@ -20,13 +12,16 @@ type EmailProps = Omit<
  * @param {string} [props.name="email"] - Input field name
  * @param {string} [props.label="Email"] - Input label text
  * @example
- * <Email 
+ * <Email
  *   id="user-email"
  *   label="Email Address"
  *   validator={emailSchema}
  *   required
  * />
  */
+const email = "email" as const;
+
+type EmailProps = Omit<InputProps, "id"> & { id?: string };
 
 const Email = ({
   id = "email",

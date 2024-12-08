@@ -6,13 +6,13 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Index() {
   return (
-    <main>
+    <>
       <h1>useAnotherFormHook</h1>
       <p>
         <em>
           Just another form library. Probably not for production. Thanks Szymon.
         </em>
       </p>
-    </main>
+    </>
   );
 }

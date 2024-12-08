@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["./app/*"],
+      "@types/form": ["./app/form/types/*"],
       "@form/*": ["app/form/*"],
       "@form/Form": ["app/form/Form"],
       "@form/Input": ["app/form/Input"],

@@ -1,0 +1,45 @@
+/* Modern CSS Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  line-height: var(--line-height-normal);
+  -webkit-font-smoothing: antialiased;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Remove default focus styles for mouse users ONLY if :focus-visible is supported */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Show focus styles on keyboard focus if :focus-visible is supported */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Remove list styles */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+} 

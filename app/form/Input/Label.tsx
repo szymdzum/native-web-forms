@@ -1,3 +1,5 @@
+import styles from './Input.module.css';
+
 type LabelProps = Omit<
   React.LabelHTMLAttributes<HTMLLabelElement>,
   "htmlFor" | "className"
@@ -28,9 +30,7 @@ type LabelProps = Omit<
 const Label = ({ id, label, className, ...props }: LabelProps) => (
   <label
     htmlFor={id}
-    className={`text-sm font-medium leading-4 text-foreground ${
-      className || ""
-    }`}
+    className={`${styles.label} ${className || ""}`}
     {...props}
   >
     {label}:

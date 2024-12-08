@@ -1,0 +1,40 @@
+:root {
+  /* Colors */
+  --color-background: #ffffff;
+  --color-text: #444;
+  --color-text-muted: #666666;
+  --color-border: #e5e5e5;
+  --color-primary: #3b82f6;
+  --color-error: #ef4444;
+  --color-success: #22c55e;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+
+  /* Spacing */
+  --space-1: 0.25rem;  /* 4px */
+  --space-2: 0.5rem;   /* 8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-6: 1.5rem;   /* 24px */
+  --space-8: 2rem;     /* 32px */
+
+  /* Typography */
+  --font-family: Tahoma, sans-serif; 
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1.125rem;
+  --font-size-lg: 1.125rem;
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+
+  /* Forms */
+  --input-height: 2.25rem;
+  --input-padding: 0.5rem 0.75rem;
+  --input-radius: 0.375rem;
+  --input-border: 1px solid var(--color-border);
+  --input-shadow: var(--shadow-sm);
+
+  /* Transitions */
+  --transition-fast: 150ms ease-in-out;
+} 
