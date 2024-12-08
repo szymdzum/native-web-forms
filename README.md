@@ -1,4 +1,4 @@
-# use-another-hook-form (Proof of Concept v0.07 alpha)
+# useAnotherFormHook (Proof of Concept v0.07 alpha)
 
 --
 
