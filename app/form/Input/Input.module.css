@@ -1,7 +1,6 @@
 .field {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
 }
 
 input, textarea, select {
@@ -17,7 +16,6 @@ input, textarea, select {
 
 label {
   display: block;
-  margin-bottom: var(--space-1);
   font-size: var(--font-size-sm);
   font-weight: 500;
 }
