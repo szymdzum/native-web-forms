@@ -1,9 +1,8 @@
 # useAnotherFormHook (POC v0.07 alpha)
 
-*Yet another attempt at reinventing the wheel—because sometimes, you just want your wheel to be shiny, rounder (probably), and just fun!*
+*Just a project to play with ideas. Probably not for production. Just use another hook form. Thanks Szymon*
 
 Saw plenty of solid `useForm()` implementations — let me have a go with `useInput()`.
-
 
 ## The Story So Far…
 
